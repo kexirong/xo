@@ -489,7 +489,16 @@ func (tl TypeLoader) LoadRelkind(args *ArgType, relType RelType) (map[string]*Ty
 
 	// generate table templates
 	for _, t := range tableMap {
-		err = args.ExecuteTemplate(TypeTemplate, t.Name, "", t)
+		fkMap := map[string]*ForeignKey{}
+		err = tl.LoadTableForeignKeys(args, tableMap, t, fkMap)
+		if err != nil {
+			return nil, err
+		}
+		err = args.ExecuteTemplate(TypeTemplate, t.Name, "",
+			struct {
+				*Type
+				FkMap map[string]*ForeignKey
+			}{t, fkMap})
 		if err != nil {
 			return nil, err
 		}
