@@ -1,5 +1,6 @@
 #!/bin/bash
-
+# mkdir -p /data/go/src/github.com/xo
+# ln -s $GOPATH/src/github.com/kexirong/xo $GOPATH/src/github.com/xo/xo
 PGDB=pg://xodb:xodb@localhost/xodb
 MYDB=my://xodb:xodb@localhost/xodb
 MSDB=ms://xodb:xodb@localhost/xodb
